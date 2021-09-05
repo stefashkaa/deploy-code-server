@@ -26,7 +26,7 @@ RUN sudo chown -R coder:coder /home/coder/.local
 # RUN sudo apt-get install -y ubuntu-make
 RUN sudo curl -fsSL https://deb.nodesource.com/setup_15.x | sudo bash -
 RUN sudo apt-get install -y nodejs
-RUN npm install --global yarn
+RUN sudo npm install --global yarn
 RUN yarn global add typescript
 RUN yarn global add @vue/cli
 
