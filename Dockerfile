@@ -1,5 +1,5 @@
 # Start from the code-server Debian base image
-FROM codercom/code-server:3.10.2
+FROM codercom/code-server:3.11.1
 
 USER coder
 
@@ -22,12 +22,20 @@ RUN sudo chown -R coder:coder /home/coder/.local
 # You can add custom software and dependencies for your environment below
 # -----------
 
-# Install a VS Code extension:
-# Note: we use a different marketplace than VS Code. See https://github.com/cdr/code-server/blob/main/docs/FAQ.md#differences-compared-to-vs-code
-# RUN code-server --install-extension esbenp.prettier-vscode
-
 # Install apt packages:
 # RUN sudo apt-get install -y ubuntu-make
+RUN sudo curl -fsSL https://deb.nodesource.com/setup_15.x | sudo bash -
+RUN sudo apt-get install -y nodejs
+RUN npm install --global yarn
+RUN yarn global add typescript
+RUN yarn global add @vue/cli
+
+# Install a VS Code extension:
+# Note: we use a different marketplace than VS Code. See https://github.com/cdr/code-server/blob/main/docs/FAQ.md#differences-compared-to-vs-code
+RUN code-server --install-extension octref.vetur
+RUN code-server --install-extension dariofuzinato.vue-peek
+RUN code-server --install-extension eamodio.gitlens
+RUN code-server --install-extension shd101wyy.markdown-preview-enhanced
 
 # Copy files: 
 # COPY deploy-container/myTool /home/coder/myTool
